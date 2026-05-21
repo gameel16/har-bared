@@ -544,7 +544,7 @@ function renderMenu() {
                     <div class="card-title">${item.name}</div>
                     <div class="card-category"><i class="fas fa-tag"></i> ${item.category}</div>
                     <div class="size-selector">
-                        <label><i class="fas fa-ruler-combined"></i> اختر الحجم:</label>
+                        <label><i class="fas fa-ruler-combined"></i> اختر نوع طلبك</label>
                         <select class="size-dropdown" data-idx="${idx}">${options}</select>
                     </div>
                     <div class="price-display" data-price-idx="${idx}">${defaultPrice} ر.س</div>
