@@ -494,11 +494,11 @@ function sendOrderViaWhatsApp() {
         alert('السلة فارغة، أضف بعض الأصناف أولاً.');
         return;
     }
-    let message = 'مرحباً، أريد طلب:\n';
+    let message = 'السلام عليكم، أبغا طلب:\n';
     cart.forEach(item => {
         message += `• ${item.name} (${item.size}) × ${item.quantity} = ${item.price * item.quantity} ر.س\n`;
     });
-    message += `\nالمجموع الكلي: ${calculateTotal()} ر.س\nمن مطعم حار بارد.`;
+    message += `\nالمجموع الكلي: ${calculateTotal()} ر.س\nمن مطعم شاورما حار بارد.`;
     const encoded = encodeURIComponent(message);
     window.open(`https://wa.me/966538757512?text=${encoded}`, '_blank');
 }
@@ -581,7 +581,7 @@ function renderMenu() {
             const selectedOption = select.options[select.selectedIndex];
             const size = selectedOption.value;
             const price = selectedOption.getAttribute('data-price');
-            const message = `مرحباً، أرغب في طلب: ${productName} (${size}) - السعر: ${price} ريال من مطعم حار بارد.`;
+            const message = `السلام عليكم، أبغا طلب: ${productName} (${size}) - السعر: ${price} ريال من مطعم شاورما حار بارد.`;
             window.open(`https://wa.me/966538757512?text=${encodeURIComponent(message)}`, '_blank');
         });
     });
@@ -615,7 +615,7 @@ function setupHeroButton() {
     const heroBtn = document.getElementById('heroOrderBtn');
     if (heroBtn) {
         heroBtn.addEventListener('click', () => {
-            window.open('https://wa.me/966538757512?text=مرحباً، أريد طلب وجبات من مطعم حار بارد', '_blank');
+            window.open('https://wa.me/966538757512?text=السلام عليكم، أبغا طلب وجبات من مطعم شاورما حار بارد', '_blank');
         });
     }
 }
