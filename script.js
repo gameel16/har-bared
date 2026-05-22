@@ -373,14 +373,12 @@ const menuData = [
 
 ];
 
-// متغيرات السلة
-let cart = [];  // كل عنصر: { id, name, size, price, quantity }
-
-// المتغيرات العامة للفلتر والبحث
+// متغيرات السلة والبحث
+let cart = [];
 let currentFilter = "all";
 let searchQuery = "";
 
-// دوال السلة
+// ========== دوال السلة ==========
 function addToCart(productName, selectedSize, price) {
     const existing = cart.find(item => item.name === productName && item.size === selectedSize);
     if (existing) {
@@ -446,7 +444,6 @@ function updateCartUI() {
             </div>
         `).join('');
         
-        // إضافة أحداث الأزرار الجديدة
         document.querySelectorAll('.decrease-qty').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const id = parseInt(btn.getAttribute('data-id'));
@@ -471,7 +468,6 @@ function updateCartUI() {
 }
 
 function showNotification(msg) {
-    // إشعار بسيط يختفي بعد ثانيتين
     const notif = document.createElement('div');
     notif.className = 'cart-notification';
     notif.innerHTML = `<i class="fas fa-check-circle"></i> ${msg}`;
@@ -489,21 +485,27 @@ function showNotification(msg) {
     setTimeout(() => notif.remove(), 2000);
 }
 
+// دالة إرسال الطلب مع الإضافات
 function sendOrderViaWhatsApp() {
     if (cart.length === 0) {
         alert('السلة فارغة، أضف بعض الأصناف أولاً.');
         return;
     }
+    const notes = document.getElementById('orderNotes').value.trim();
     let message = 'السلام عليكم، أبغا طلب:\n';
     cart.forEach(item => {
         message += `• ${item.name} (${item.size}) × ${item.quantity} = ${item.price * item.quantity} ر.س\n`;
     });
-    message += `\nالمجموع الكلي: ${calculateTotal()} ر.س\nمن مطعم شاورما حار بارد.`;
+    message += `\nالمجموع الكلي: ${calculateTotal()} ر.س`;
+    if (notes !== '') {
+        message += `\n\n📝 إضافات الطلب: ${notes}`;
+    }
+    message += '\nمن مطعم شاورما حار بارد.';
     const encoded = encodeURIComponent(message);
     window.open(`https://wa.me/966538757512?text=${encoded}`, '_blank');
 }
 
-// دوال عرض القائمة (مع إضافة زر إضافة إلى السلة)
+// ========== دوال عرض القائمة ==========
 function buildFilterButtons() {
     const categories = [...new Set(menuData.map(item => item.category))];
     const container = document.getElementById("filterButtons");
@@ -544,7 +546,7 @@ function renderMenu() {
                     <div class="card-title">${item.name}</div>
                     <div class="card-category"><i class="fas fa-tag"></i> ${item.category}</div>
                     <div class="size-selector">
-                        <label><i class="fas fa-ruler-combined"></i> اختر نوع طلبك</label>
+                        <label><i class="fas fa-ruler-combined"></i> اختر نوع الطلب</label>
                         <select class="size-dropdown" data-idx="${idx}">${options}</select>
                     </div>
                     <div class="price-display" data-price-idx="${idx}">${defaultPrice} ر.س</div>
@@ -557,7 +559,7 @@ function renderMenu() {
         `;
     }).join('');
     
-    // ربط أحداث القوائم المنسدلة (تحديث السعر)
+    // تحديث السعر عند تغيير الحجم
     document.querySelectorAll('.size-dropdown').forEach(select => {
         const card = select.closest('.card');
         const idx = select.getAttribute('data-idx');
@@ -586,7 +588,7 @@ function renderMenu() {
         });
     });
     
-    // زر إضافة إلى السلة (جديد)
+    // زر إضافة إلى السلة
     document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -601,7 +603,7 @@ function renderMenu() {
     });
 }
 
-// باقي الدوال (بحث، تمرير، إلخ) كما هي دون تغيير
+// ========== البحث ==========
 function setupSearch() {
     const searchInput = document.getElementById('searchInput');
     if (searchInput) {
@@ -611,6 +613,8 @@ function setupSearch() {
         });
     }
 }
+
+// ========== زر الهيرو ==========
 function setupHeroButton() {
     const heroBtn = document.getElementById('heroOrderBtn');
     if (heroBtn) {
@@ -619,6 +623,8 @@ function setupHeroButton() {
         });
     }
 }
+
+// ========== زر العودة للأعلى ==========
 function setupGoTop() {
     const goTop = document.getElementById('goTopBtn');
     if (goTop) {
@@ -628,6 +634,8 @@ function setupGoTop() {
         goTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
     }
 }
+
+// ========== تمرير سلس ==========
 function setupSmoothScroll() {
     document.querySelectorAll('.nav-links a').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -639,6 +647,8 @@ function setupSmoothScroll() {
         });
     });
 }
+
+// ========== تأثيرات الحركة ==========
 function setupAnimations() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -656,7 +666,7 @@ function setupAnimations() {
     }, 200);
 }
 
-// إظهار وإخفاء السلة
+// ========== إظهار وإخفاء السلة ==========
 function setupCartSidebar() {
     const cartIcon = document.getElementById('cartIcon');
     const sidebar = document.getElementById('cartSidebar');
@@ -675,14 +685,13 @@ function setupCartSidebar() {
     closeBtn.addEventListener('click', closeCart);
     overlay.addEventListener('click', closeCart);
     
-    // زر إرسال الطلب في السلة
     const checkoutBtn = document.getElementById('checkoutWhatsappBtn');
     if (checkoutBtn) {
         checkoutBtn.addEventListener('click', sendOrderViaWhatsApp);
     }
 }
 
-// التهيئة العامة
+// ========== التهيئة ==========
 function init() {
     buildFilterButtons();
     renderMenu();
@@ -692,8 +701,8 @@ function init() {
     setupSmoothScroll();
     setupAnimations();
     setupCartSidebar();
-    updateCartUI(); // لعرض العداد والمحتوى الأولي
-    console.log("✅ تم تحميل الموقع مع سلة الطلبات");
+    updateCartUI();
+    console.log("✅ تم تحميل الموقع مع سلة الطلبات وإضافات الطلب");
 }
 
 document.addEventListener('DOMContentLoaded', init);

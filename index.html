@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="description" content="مطعم شاورما حار بارد - ألذ النكهات مع اختيار الحجم وسلة طلبات">
+    <meta name="description" content="مطعم شاورما حار بارد - ألذ النكهات مع اختيار الحجم وسلة طلبات وإضافات">
     <meta name="author" content="جميل داوود">
-    <title>مطعم شاورما حار بارد | سلة الطلبات</title>
+    <title>شاورما حار بارد | سلة الطلبات والإضافات</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- شريط التنقل مع أيقونة السلة -->
     <nav class="navbar">
         <div class="logo"><i class="fas fa-pepper-hot"></i> شاورما حار بارد</div>
         <ul class="nav-links">
@@ -19,7 +20,6 @@
             <li><a href="#contact">تواصل</a></li>
             <li><a href="#map-section">موقعنا</a></li>
         </ul>
-        <!-- أيقونة السلة مع عداد -->
         <div class="cart-icon-container">
             <i class="fas fa-shopping-cart cart-icon" id="cartIcon"></i>
             <span class="cart-count" id="cartCount">0</span>
@@ -36,21 +36,26 @@
             <p class="empty-cart-msg">السلة فارغة</p>
         </div>
         <div class="cart-footer">
+            <!-- حقل الإضافات (جديد) -->
+            <div class="cart-notes">
+                <label for="orderNotes"><i class="fas fa-pen"></i> إضافات الطلب (شطة، كتشب، حراق، ملاحظات):</label>
+                <textarea id="orderNotes" rows="2" placeholder="مثال: شطة زيادة، بدون بطاطس، صوص ثوم..."></textarea>
+            </div>
             <div class="cart-total">المجموع: <span id="cartTotal">0</span> ر.س</div>
             <button class="checkout-wa-btn" id="checkoutWhatsappBtn"><i class="fab fa-whatsapp"></i> إرسال الطلب عبر واتساب</button>
         </div>
     </div>
-    <!-- طبقة خلفية لإغلاق السلة عند النقر خارجها -->
     <div class="cart-overlay" id="cartOverlay"></div>
 
+    <!-- قسم الترحيب -->
     <section id="home" class="hero">
         <div class="hero-content">
-            <h1>مطعم شاورما حار بارد</h1>
+            <h1>شاورما حار بارد </h1>
             <p>"ألذ النكهات وأشهى الوجبات بطعم لا يُنسى"</p>
-            <button class="btn-order" id="heroOrderBtn"><i class="fab fa-whatsapp"></i> اطلب الآن عبر واتساب</button>
         </div>
     </section>
 
+    <!-- قسم قائمة الطعام -->
     <section id="menu" class="section">
         <h2 class="section-title">قائمة الطعام</h2>
         <div class="filter-bar">
@@ -60,6 +65,7 @@
         <div class="menu-grid" id="menuGrid"></div>
     </section>
 
+    <!-- قسم التواصل والخريطة -->
     <section id="contact" class="section" style="background: #fef7f0;">
         <h2 class="section-title">تواصل معنا</h2>
         <div class="contact-map">
@@ -71,19 +77,21 @@
                 <a href="https://wa.me/966538757512" class="btn-map" target="_blank"><i class="fab fa-whatsapp"></i> تواصل عبر واتساب</a>
             </div>
             <div class="map-container" id="map-section">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3811.943870428571!2d44.23121!3d17.57885!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15f1f1e7b7f84b1d%3A0x3b3e0e0b3d7f5b3!2z2YXYs9in2YUg2KfZhNix2YrYp9i5INin2YTYsdmK2KfYuSDYp9mE2YHZitmE2YjYp9mG!5e0!3m2!1sar!2ssa!4v1650000000000!5m2!1sar!2ssa" allowfullscreen="" loading="lazy"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3811.943870428571!2d44.231183!3d17.578998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15f1f1e7b7f84b1d%3A0x3b3e0e0b3d7f5b3!2z2YXYs9in2YUg2KfZhNix2YrYp9i5INin2YTYsdmK2KfYuSDYp9mE2YHZitmE2YjYp9mG!5e0!3m2!1sar!2ssa!4v1650000000000!5m2!1sar!2ssa" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
         <div style="text-align:center; margin-top:25px">
-            <a href="https://www.google.com/maps/search/?api=1&query=+مطعم+شورما+حار+باردنجران+حي+الفهد+شارع+صهيب+بن+سنان" target="_blank" class="btn-map" style="background:#3b5998;"><i class="fas fa-external-link-alt"></i> فتح الموقع في خرائط Google</a>
+            <a href="https://www.google.com/maps/search/?api=1&query=نجران+حي+الفهد+شارع+صهيب+بن+سنان+مطعم+شاورما+حار+بارد" target="_blank" class="btn-map" style="background:#3b5998;"><i class="fas fa-external-link-alt"></i> فتح الموقع في خرائط Google</a>
         </div>
     </section>
 
+    <!-- تذييل الصفحة -->
     <footer>
-        <p>مطعم شاورما حار بارد - أرقى النكهات</p>
+        <p>مطعم حار بارد - أرقى النكهات</p>
         <div class="developer">تطوير وتصميم: جميل داوود | <a href="https://wa.me/966563637670" target="_blank"><i class="fab fa-whatsapp"></i> واتساب المطور: 0563637670</a></div>
     </footer>
 
+    <!-- أزرار عائمة -->
     <a href="https://wa.me/966538757512" class="floating-wa" target="_blank"><i class="fab fa-whatsapp"></i></a>
     <a href="tel:0538757512" class="floating-call"><i class="fas fa-phone-alt"></i></a>
     <div class="go-top" id="goTopBtn"><i class="fas fa-arrow-up"></i></div>
